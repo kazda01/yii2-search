@@ -10,6 +10,7 @@
       "widget"
   ],
   "type": "yii2-extension",
+  "license": "BSD-3-Clause",
   "autoload": {
     "psr-4": {
       "kazda01\\search\\": "src/"
