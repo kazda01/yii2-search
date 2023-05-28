@@ -1,0 +1,33 @@
+{
+  "name": "kazda01/yii2-search",
+  "description": "A simple search engine that allows the user to search for models by defined attributes and rules.",
+  "keywords": [
+      "yii2",
+      "extension",
+      "search",
+      "model",
+      "ajax",
+      "widget"
+  ],
+  "type": "yii2-extension",
+  "autoload": {
+    "psr-4": {
+      "kazda01\\search\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Kazda Antonín",
+      "email": "antoninkazda@gmail.com"
+    },
+    {
+      "name": "Mifka Radim",
+      "email": "radimmifka@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.0",
+    "yiisoft/yii2": "~2.0.45",
+    "yiisoft/yii2-bootstrap5": "2.0.3"
+  }
+}
