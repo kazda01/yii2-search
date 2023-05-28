@@ -8,13 +8,7 @@ use yii\base\Module;
 class SearchModule extends Module
 {
     public $allowGet = false;
-    public $rules = [
-        [
-            'allow' => true,
-            'roles' => ['@'],
-            'actions' => ['index'],
-        ],
-    ];
+    public $rules = [];
     public $searchResultClass = 'rounded p-1 ms-2';
     public $config;
 

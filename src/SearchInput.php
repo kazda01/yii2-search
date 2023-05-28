@@ -9,7 +9,7 @@ use yii\base\Widget;
 class SearchInput extends Widget
 {
     public $search_id;
-    public $placeholder = '';
+    public $placeholder = 'Search';
     public $formClass = '';
     public $buttonClass = 'btn btn-dark search-button';
     public $buttonContent = '<i class="fa fa-search"></i>';
