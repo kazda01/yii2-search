@@ -1,6 +1,8 @@
 # yii2-search
 A simple search engine that allows the user to search for models by defined attributes and rules.
 
+![Search example](docs/search-example.gif)
+
 After specifying the rules, the user can search for multiple Models by multiple attributes at once. The results are then dynamically listed under the input.
 For each search result, its IdentifyingString and the name of the attribute in which a match was found is displayed. The exact match is also highlighted in bold.
 
