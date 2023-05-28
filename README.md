@@ -11,7 +11,7 @@ For each search result, its IdentifyingString and the name of the attribute in w
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```
-composer require kazda01/yii2-search
+composer require kazda01/yii2-search "@dev"
 ```
 
 ## Usage
