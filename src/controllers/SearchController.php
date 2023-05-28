@@ -17,7 +17,7 @@ class SearchController extends Controller
 
     public function init()
     {
-        $this->searchParams = $this->module->config;
+        $this->searchParams = $this->module->searchConfig;
         parent::init();
     }
 

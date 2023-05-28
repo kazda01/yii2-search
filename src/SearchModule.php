@@ -10,7 +10,7 @@ class SearchModule extends Module
     public $allowGet = false;
     public $rules = [];
     public $searchResultClass = 'rounded p-1 ms-2';
-    public $config;
+    public $searchConfig = [];
 
     public function init()
     {
