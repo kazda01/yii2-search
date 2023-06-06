@@ -1,5 +1,8 @@
-# yii2-search
+# Yii2 search
 A simple search engine that allows the user to search for models by defined attributes and rules.
+
+[![Total Downloads](https://poser.pugx.org/kazda01/yii2-search/downloads)](https://packagist.org/packages/kazda01/yii2-search)
+[![License](https://poser.pugx.org/kazda01/yii2-search/license)](https://packagist.org/packages/kazda01/yii2-search)
 
 ![Search example](docs/search-example.gif)
 
