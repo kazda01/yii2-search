@@ -33,7 +33,7 @@ return [
     'modules' => [
         '<ModuleID>' => [
             'class' => '\kazda01\search\SearchModule',
-            'config' => [
+            'searchConfig' => [
                 '<ModelSearch>' => [
                     'columns' => ['<ModelAttribute>', '<ModelAttribute>'],
                 ],
