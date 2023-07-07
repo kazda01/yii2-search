@@ -26,19 +26,23 @@ class SearchController extends Controller
      */
     public function behaviors()
     {
-        return [
+        $behaviors = [
             'verbs' => [
                 'class' => VerbFilter::class,
                 'actions' => [
                     'index' => (bool) $this->module->allowGet ? ['POST', 'GET'] : ['POST'],
                 ],
             ],
-            'access' => [
+        ];
+
+        if (!empty($this->module->rules)) {
+            $behaviors['access'] = [
                 'class' => AccessControl::class,
                 'rules' => $this->module->rules
-            ],
+            ];
+        }
 
-        ];
+        return $behaviors;
     }
 
     public function getSearchResults($searchObjectName, $search)
