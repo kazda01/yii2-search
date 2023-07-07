@@ -2,6 +2,10 @@
 
 /** @var yii\web\View $this */
 
+use kartik\icons\Icon;
+
+Icon::map($this, Icon::FAS);
+
 ?>
 
 <form autocomplete="off" onsubmit="return false" class="<?= $formClass ?>">
