@@ -134,7 +134,7 @@ if (empty($results)) : ?>
     <div class="container-fluid border-bottom pb-2 mb-2">
         <div class="row g-0">
             <div class="flex-column d-flex justify-content-center h-100">
-                <span class="h6 mb-0"><?= Yii::t('app', str_replace('_', ' ', ucfirst($table[0]['model']->tableName()))) ?></span>
+                <span class="h6 mb-0 text-start"><?= Yii::t('app', str_replace('_', ' ', ucfirst($table[0]['model']->tableName()))) ?></span>
                 <?php foreach ($table as $index => $match) : ?>
                     <div class="search-result position-relative <?= $searchResultClass ?>">
                         <a class="stretched-link search-focus" href="<?= Url::toRoute($match['route']) ?>"></a>
