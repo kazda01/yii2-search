@@ -26,10 +26,12 @@ If you want to have multiple different search engines (e.g. Invoice and User sea
 
 The ModuleID will also be used to create the search route.
 The final requests will go to `website.com/ModuleID/search?search=query`.
+It is important to add the ModuleID to bootstrap so that the route is added to the UrlManager with priority over your site's routes (this action is not needed if your routes do not conflict with the search route).
 
 ```php
 return [
     ...
+    'bootstrap' => ['<ModuleID>'],
     'modules' => [
         '<ModuleID>' => [
             'class' => '\kazda01\search\SearchModule',
@@ -127,6 +129,7 @@ Company results are also grouped by `name`, `vat_id` and `state` attributes. The
 ```php
 return [
     ...
+    'bootstrap' => ['main-search', 'invoice-search'],
     'modules' => [
         'main-search' => [
             'class' => '\kazda01\search\SearchModule',

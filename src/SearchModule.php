@@ -3,14 +3,31 @@
 namespace kazda01\search;
 
 use Yii;
+use yii\base\BootstrapInterface;
 use yii\base\Module;
 
-class SearchModule extends Module
+class SearchModule extends Module implements BootstrapInterface
 {
     public $allowGet = false;
     public $rules = [];
     public $searchResultClass = 'rounded p-1 ms-2';
     public $searchConfig = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function bootstrap($app)
+    {
+        if ($app instanceof \yii\web\Application) {
+            $app->getUrlManager()->addRules([
+                [
+                    'class' => 'yii\web\UrlRule',
+                    'pattern' => $this->id . '/search',
+                    'route' => $this->id . '/search'
+                ],
+            ], false);
+        }
+    }
 
     public function init()
     {
