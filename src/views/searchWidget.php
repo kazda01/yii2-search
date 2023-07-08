@@ -138,7 +138,7 @@ if (empty($results)) : ?>
                 <?php foreach ($table['table'] as $index => $match) : ?>
                     <div class="search-result position-relative p-1 ms-2 <?= $searchResultClass ?>">
                         <a class="stretched-link search-focus" href="<?= Url::toRoute($match['route']) ?>"></a>
-                        <div class="d-flex"><?= $match['model']->printIdentifyingString() ?></div>
+                        <div class="d-flex"><?= $match['matchText'] ?></div>
                         <small class="match text-muted d-flex">
                             <span class="ms-2 me-3"><?= $match['model']->getAttributeLabel($match['match']) ?></span>
                             <?php
