@@ -10,7 +10,7 @@ class SearchModule extends Module implements BootstrapInterface
 {
     public $allowGet = false;
     public $rules = [];
-    public $searchResultClass = 'rounded p-1 ms-2';
+    public $searchResultClass = 'rounded';
     public $searchConfig = [];
 
     /**

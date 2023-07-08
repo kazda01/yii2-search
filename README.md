@@ -38,6 +38,10 @@ return [
             'searchConfig' => [
                 '<ModelSearch>' => [
                     'columns' => ['<ModelAttribute>', '<ModelAttribute>'],
+                    'matchTitle' => '<matchTitle>',
+                    'matchText' => function($model){
+                        return 'Model: ' . $model->id;
+                    }
                 ],
             ]
         ],
@@ -53,13 +57,7 @@ All available settings are described here.
 Search Model classes must be generated. They can be simply made by [Gii CRUD generator](https://www.yiiframework.com/doc/guide/2.0/en/start-gii#generating-crud).
 You can restrict what results certain users can search/display.
 
-### 3. Add `printIdentifyingString()` method
-
-The printIdentifyingString() function is used to identify the record in the search result, so it must be added to every Model that can be displayed in the search results.
-
-The function returns a String.
-
-### 4. Generate search input
+### 3. Generate search input
 
 In a view, add this line. 
 
@@ -77,7 +75,7 @@ All available settings are described here.
 |-------------------|-------------------------------------------------------------------------------------------------|----------------------|----------------------------------------------------------------------------------------------------------------------|
 | allowGet          | `boolean`                                                                                       | `false`              | Whether the search route (`/ModuleID/search`) should accept the GET method in addition to POST.                      |
 | rules             | [Rules array](https://www.yiiframework.com/doc/api/2.0/yii-filters-accesscontrol#$rules-detail) | `[]`                 | Rules array as described by Yii docs. Can be used to restrict access to certain searches as shown in examples below. |
-| searchResultClass | `string`                                                                                        | `"rounded p-1 ms-2"` | Class list of the search result.                                                                                  |
+| searchResultClass | `string`                                                                                        | `'rounded'` | Class list of the search result.                                                                                  |
 | searchConfig      | [searchConfig array](https://github.com/kazda01/yii2-search#search-config)                      | `[]`                 | Configuration of search fields - how to search the modules.                                                          |
 
 ### Search Config
@@ -85,8 +83,10 @@ All available settings are described here.
 | option      | type                                          | default value                                     | description                                                                                                                                                                                                 |
 |-------------|-----------------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | columns     | `array[string]`                               | `[]`                                              | The columns/attributes in which the search engine should search for a match.                                                                                                                                |
-| route       | `string`                                      | `"<table-name>/view"`                             | Route to which the user should be directed after clicking.                                                                                                                                                  |
-| routeParams | `function($model) -> array[string => string]` | `["<primary_key_column>" => <model->primaryKey>]` | Route params to be used in `Url::toRoute([$route, $routeParams])`                                                                                                                                           |
+| matchTitle     | `string`                               | None (required)                                              | Title/header that will be above results from this search_id.                                                                                                                                |
+| matchText     | `function($model)`                               | None (required)                                              | Text that will be displayed for every match. Should be some string that idetifies the found model.                                                                                                                                |
+| route       | `string`                                      | `'<tablename>/view'`                             | Route to which the user should be directed after clicking.                                                                                                                                                  |
+| routeParams | `function($model)` | Primary key | Route params to be used in `Url::toRoute([$route, $routeParams])`                                                                                                                                           |
 | only_if     | `function($model)`                            | -                                                 | A function that receives a module as input, this record is only outputted in the results if this function returns true.                                                                                     |
 | group_by    | `boolean\|string\|array[string]`              | `false`                                           | Whether to use GROUP BY clause to filter the same records. If true, the columns from `columns` will be used for GROUP BY. If it is a String or an array of Strings, those will be used as GROUP BY columns. |
 
@@ -94,14 +94,14 @@ All available settings are described here.
 
 | option        | default value                                     | description                                            |
 |---------------|---------------------------------------------------|--------------------------------------------------------|
-| search_id     | -                                                 | Required. Used to identify which Search config to use. |
-| placeholder   | `"Search"`                                        | Input placeholder.                                     |
-| formClass     | `""`                                              | Class list of the wrapper form.                        |
-| buttonClass   | `"btn btn-dark search-button"`                    | Class list of the search button.                       |
+| search_id     | None (required)                                   | Used to identify which Search config to use.           |
+| placeholder   | `'Search'`                                        | Input placeholder.                                     |
+| formClass     | `''`                                              | Class list of the wrapper form.                        |
+| buttonClass   | `'btn btn-dark search-button'`                    | Class list of the search button.                       |
 | buttonContent | `'<i class="fa fa-search"></i>'`                  | Content of the search button.                          |
-| inputClass    | `"form-control p-1 no-outline"`                   | Class list of the search input.                        |
-| wrapperClass  | `""`                                              | Class list of the wrapper div.                         |
-| widgetClass   | `"mx-auto shadow p-2 position-absolute bg-white"` | Class list of the widget div, generated by ajax call.  |
+| inputClass    | `'form-control p-1 no-outline'`                   | Class list of the search input.                        |
+| wrapperClass  | `''`                                              | Class list of the wrapper div.                         |
+| widgetClass   | `'mx-auto shadow p-2 position-absolute bg-white'` | Class list of the widget div, generated by ajax call.  |
 
 ## Examples
 
@@ -144,6 +144,10 @@ return [
             'searchConfig' => [
                 'CompanySearch' => [
                     'columns' => ['name', 'vat_id', 'state'],
+                    'matchTitle' => 'Company',
+                    'matchText' => function($model){
+                        return $model->name . ', ' . $model->vat_id;
+                    }
                     'route' => 'invoice/index',
                     'route_params' => function ($model) {
                         return ['InvoiceSearch[fk_company_customer]' => $model->name];
@@ -155,9 +159,17 @@ return [
                 ],
                 'InvoiceSearch' => [
                     'columns' => ['invoice_number'],
+                    'matchTitle' => 'Invoice',
+                    'matchText' => function($model){
+                        return 'Invoice number ' . $model->invoice_number;
+                    }
                 ],
                 'InvoiceItemSearch' => [
                     'columns' => ['description'],
+                    'matchTitle' => 'Invoice item',
+                    'matchText' => function($model){
+                        return 'Invoice number: ' . $model->invoice->invoice_number;
+                    }
                     'route' => 'invoice/view',
                     'route_params' => function ($model) {
                         return ['id' => $model->invoice->id];
@@ -170,6 +182,10 @@ return [
             'searchConfig' => [
                 'InvoiceSearch' => [
                     'columns' => ['invoice_number'],
+                    'matchTitle' => 'Invoice',
+                    'matchText' => function($model){
+                        return 'Invoice number: ' . $model->invoice_number;
+                    }
                 ],
             ]
         ]
@@ -188,18 +204,6 @@ return [
         'inputClass' => 'form-control p-2 no-outline',
     ]); ?>
 </div>
-```
-
-### Example Invoice.php
-```php
-    ...
-    
-    public function printIdentifyingString()
-    {
-        return Yii::t('app', 'Invoice number') . ": " . $this->invoice_number;
-    }
-    
-    ...
 ```
 
 ## License

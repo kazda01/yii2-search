@@ -91,6 +91,7 @@ class SearchController extends Controller
 
                 $results[] = [
                     'model' => $model,
+                    'matchText' => $this->searchParams[$searchObjectName]['matchText']($model),
                     'match' => $column,
                     'route' => $route,
                 ];
@@ -117,7 +118,10 @@ class SearchController extends Controller
 
         foreach ($this->searchParams as $key => $_) {
             $tableResults = $this->getSearchResults($key, $search);
-            if (!empty($tableResults)) $results[] = $tableResults;
+            if (!empty($tableResults)) $results[] = [
+                'matchTitle' => $this->searchParams[$key]['matchTitle'],
+                'table' => $tableResults,
+            ];
         }
 
         return $this->renderPartial('/searchWidget', [
