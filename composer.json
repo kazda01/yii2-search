@@ -29,7 +29,6 @@
   "require": {
     "php": ">=7.4.0",
     "yiisoft/yii2": "~2.0.45",
-    "yiisoft/yii2-bootstrap5": "2.0.3",
-    "kartik-v/yii2-icons": "@dev"
+    "yiisoft/yii2-bootstrap5": "2.0.3"
   }
 }
