@@ -78,7 +78,7 @@ class SearchController extends Controller
                 if (array_key_exists('route', $this->searchParams[$searchObjectName])) {
                     $route = [$this->searchParams[$searchObjectName]['route']];
                 } else {
-                    $route = [str_replace('_', '-', $model->tableName()) . '/view'];
+                    $route = ['/' . str_replace('_', '-', $model->tableName()) . '/view'];
                 }
 
                 if (array_key_exists('route_params', $this->searchParams[$searchObjectName])) {
