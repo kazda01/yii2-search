@@ -12,7 +12,7 @@ svg.search-icon {
     border: 1px solid #aaa !important;
     border-top-right-radius: .5rem !important;
     border-bottom-right-radius: .5rem !important;
-    background-color: #05060f0a;
+    background-color: #f3f3f3;
 }
 
 .no-outline,
@@ -34,6 +34,9 @@ svg.search-icon {
     z-index: 3;
     max-height: 50vh;
     overflow-y: auto;
+    overflow-x: hidden;
+    border-bottom-left-radius: .2rem;
+    border-bottom-right-radius: .2rem;
 }
 
 .search-result.focus {
