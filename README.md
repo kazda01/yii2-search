@@ -83,7 +83,7 @@ All available settings are described here.
 | option      | type                                          | default value                                     | description                                                                                                                                                                                                 |
 |-------------|-----------------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | columns     | `array[string]`                               | `[]`                                              | The columns/attributes in which the search engine should search for a match.                                                                                                                                |
-| matchTitle     | `string`                               | None (required)                                              | Title/header that will be above results from this search_id.                                                                                                                                |
+| matchTitle     | `string\|function()`                               | None (required)                                              | Title/header that will be above results from this search_id. If you want to use Yii::t() function, pass a function that returns Yii2 translation function (see example at the bottom).                                                                                                                                |
 | matchText     | `function($model)`                               | None (required)                                              | Text that will be displayed for every match. Should be some string that idetifies the found model.                                                                                                                                |
 | route       | `string`                                      | `'<tablename>/view'`                             | Route to which the user should be directed after clicking.                                                                                                                                                  |
 | routeParams | `function($model)` | Primary key | Route params to be used in `Url::toRoute([$route, $routeParams])`                                                                                                                                           |
@@ -144,7 +144,9 @@ return [
             'searchConfig' => [
                 'CompanySearch' => [
                     'columns' => ['name', 'vat_id', 'state'],
-                    'matchTitle' => 'Company',
+                    'matchTitle' => function(){
+                        return Yii::t('app', 'Company')
+                    },
                     'matchText' => function($model){
                         return $model->name . ', ' . $model->vat_id;
                     }

@@ -118,10 +118,14 @@ class SearchController extends Controller
 
         foreach ($this->searchParams as $key => $_) {
             $tableResults = $this->getSearchResults($key, $search);
-            if (!empty($tableResults)) $results[] = [
-                'matchTitle' => $this->searchParams[$key]['matchTitle'],
-                'table' => $tableResults,
-            ];
+            if (!empty($tableResults)) {
+                $matchTitle = $this->searchParams[$key]['matchTitle'];
+                if (is_callable($matchTitle)) $matchTitle = $matchTitle();
+                $results[] = [
+                    'matchTitle' => $matchTitle,
+                    'table' => $tableResults,
+                ];
+            }
         }
 
         return $this->renderPartial('/searchWidget', [
