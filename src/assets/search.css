@@ -31,7 +31,7 @@ svg.search-icon {
     left: 0;
     right: 0;
     display: none;
-    z-index: 3;
+    z-index: 5;
     max-height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
