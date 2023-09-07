@@ -8,9 +8,24 @@ use yii\base\Module;
 
 class SearchModule extends Module implements BootstrapInterface
 {
+    /**
+     * @var bool $allowGet Allow GET method for search
+     */
     public $allowGet = false;
+
+    /**
+     * @var array $rules Access rules for search
+     */
     public $rules = [];
+
+    /**
+     * @var string $searchResultClass Class for search result
+     */
     public $searchResultClass = 'rounded';
+
+    /**
+     * @var array $searchConfig Search config
+     */
     public $searchConfig = [];
 
     /**

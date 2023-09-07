@@ -1,6 +1,17 @@
 <?php
 
+/** @author Antonín Kazda (kazda01) */
+
 /** @var yii\web\View $this */
+/** @var string $search_id */
+/** @var string $placeholder */
+/** @var string $formClass */
+/** @var string $buttonClass */
+/** @var string $buttonContent */
+/** @var string $inputClass */
+/** @var string $wrapperClass */
+/** @var string $widgetClass */
+
 
 ?>
 

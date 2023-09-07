@@ -1,6 +1,11 @@
+// Author: Antonín Kazda (kazda01)
+
+// forcedSearch - whether search was forced by pressing enter key
 let forcedSearch = false;
+// lastSearch - last search query
 let lastSearch = '';
 
+// Search function - sends AJAX request to server and displays widget with results
 function search(input, search_id) {
   if (input.val() != lastSearch) {
     lastSearch = input.val();
@@ -24,6 +29,7 @@ function search(input, search_id) {
   $(`#search-widget-${search_id}`).fadeIn();
 }
 
+// Try search function - checks if search should be performed
 function try_search(event, input) {
   let search_id = input.data('search-id');
   if (
@@ -58,7 +64,7 @@ $(".search-input").on("keyup", function (e) {
   }
 });
 
-// Scroll through results
+// Scroll through results using arrows or tab
 $("body").on("keydown", ".search-focus.stretched-link, .search-input", function (e) {
   if (e.keyCode == 27) {
     // esc

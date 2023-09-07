@@ -3,16 +3,20 @@
 namespace kazda01\search\controllers;
 
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 /**
+ * @author Antonín Kazda (kazda01)
+ * @author Radim Mifka (mifka01)
+ * 
  * SearchController implements model searching.
  */
 class SearchController extends Controller
 {
+    // Search params from module config
+    // For more info and examples see the documentation
     private $searchParams;
 
     public function init()
@@ -45,14 +49,23 @@ class SearchController extends Controller
         return $behaviors;
     }
 
+    /**
+     * Get search results for specific object name and search string.
+     * 
+     * @param string $searchObjectName
+     * @param string $search
+     * @return array
+     */
     public function getSearchResults($searchObjectName, $search)
     {
         $results = [];
         foreach ($this->searchParams[$searchObjectName]["columns"] as $column) {
+            // Create search object and search
             $searchObjectClass = "app\\models\\search\\" . $searchObjectName;
             $searchObject = new $searchObjectClass;
             $searchResult = $searchObject->search([$searchObjectName => [$column => $search]]);
 
+            // Group by if specified
             if (array_key_exists('group_by', $this->searchParams[$searchObjectName])) {
                 if ((is_bool($this->searchParams[$searchObjectName]['group_by']) && $this->searchParams[$searchObjectName]['group_by']) ||
                     is_array($this->searchParams[$searchObjectName]['group_by']) ||
@@ -68,6 +81,7 @@ class SearchController extends Controller
                 }
             }
 
+            // Add results to array and process route
             foreach ($searchResult->getModels() as $model) {
                 if (array_key_exists('only_if', $this->searchParams[$searchObjectName])) {
                     if (!$this->searchParams[$searchObjectName]['only_if']($model)) {
@@ -103,8 +117,6 @@ class SearchController extends Controller
     /**
      * Creates data provider instance with search query applied
      *
-     * @param array $params
-     *
      * @return string
      */
     public function actionIndex()
@@ -116,10 +128,10 @@ class SearchController extends Controller
         }
         $results = [];
 
-        foreach ($this->searchParams as $key => $_) {
-            $tableResults = $this->getSearchResults($key, $search);
+        foreach ($this->searchParams as $searchObjectName => $searchParam) {
+            $tableResults = $this->getSearchResults($searchObjectName, $search);
             if (!empty($tableResults)) {
-                $matchTitle = $this->searchParams[$key]['matchTitle'];
+                $matchTitle = $searchParam['matchTitle'];
                 if (is_callable($matchTitle)) $matchTitle = $matchTitle();
                 $results[] = [
                     'matchTitle' => $matchTitle,
