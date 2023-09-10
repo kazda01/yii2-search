@@ -1,7 +1,7 @@
 # Yii2 search
 A simple search engine that allows the user to search for models by defined attributes and rules.
 
-![Tests](https://github.com/github/docs/actions/workflows/tests.yml/badge.svg)
+[![Tests](https://github.com/kazda01/yii2-search/actions/workflows/tests.yml/badge.svg)](https://github.com/kazda01/yii2-search/actions/workflows/tests.yml)
 [![Total Downloads](https://poser.pugx.org/kazda01/yii2-search/downloads)](https://packagist.org/packages/kazda01/yii2-search)
 [![License](https://poser.pugx.org/kazda01/yii2-search/license)](https://packagist.org/packages/kazda01/yii2-search)
 
