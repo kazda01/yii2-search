@@ -5,14 +5,14 @@
  *
  * @var yii\web\View $this
  * @var string $search
- * @var array $results
+ * @var array<array{'matchTitle': string, 'table': array}> $results
  * @var string $searchResultClass
  */
 
 
 use yii\helpers\Url;
 
-function print_column_value_by_index($counter, $orig)
+function print_column_value_by_index(int $counter, string $orig): void
 {
     if (mb_str_split($orig)[$counter] == ' ') {
         echo '&nbsp;';
@@ -25,7 +25,7 @@ function print_column_value_by_index($counter, $orig)
  * Remove accents and special symbols from string
  * Used to highlight search query in search results
  */
-function remove_accents($text)
+function remove_accents(string $text): string
 {
     $trans = array(
         'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Ç' => 'C', 'È' => 'E',
@@ -182,5 +182,4 @@ if (empty($results)) : ?>
             </div>
         </div>
     </div>
-    <?php
-endforeach; ?>
+<?php endforeach; ?>

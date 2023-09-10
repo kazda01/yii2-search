@@ -17,9 +17,9 @@ class SearchController extends Controller
 {
     // Search params from module config
     // For more info and examples see the documentation
-    private $searchParams;
+    private array $searchParams;
 
-    public function init()
+    public function init(): void
     {
         $this->searchParams = $this->module->searchConfig;
         parent::init();
@@ -28,7 +28,7 @@ class SearchController extends Controller
     /**
      * @inheritDoc
      */
-    public function behaviors()
+    public function behaviors(): array
     {
         $behaviors = [
             'verbs' => [

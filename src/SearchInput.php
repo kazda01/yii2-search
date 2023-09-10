@@ -48,7 +48,7 @@ class SearchInput extends Widget
      */
     public $widgetClass = 'mx-auto shadow p-2 position-absolute bg-white';
 
-    public function init()
+    public function init(): void
     {
         Yii::setAlias('@kazda01Search', __DIR__);
 

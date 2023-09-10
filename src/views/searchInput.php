@@ -15,7 +15,6 @@
  */
 
 
-
 ?>
 
 <form autocomplete="off" onsubmit="return false" class="<?= $formClass ?>">

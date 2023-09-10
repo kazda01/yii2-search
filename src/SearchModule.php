@@ -31,7 +31,7 @@ class SearchModule extends Module implements BootstrapInterface
     /**
      * {@inheritdoc}
      */
-    public function bootstrap($app)
+    public function bootstrap($app): void
     {
         if ($app instanceof \yii\web\Application) {
             $app->getUrlManager()->addRules([
@@ -44,7 +44,7 @@ class SearchModule extends Module implements BootstrapInterface
         }
     }
 
-    public function init()
+    public function init(): void
     {
         Yii::setAlias('@kazda01Search', __DIR__);
 
@@ -56,7 +56,7 @@ class SearchModule extends Module implements BootstrapInterface
         return Yii::getAlias('@kazda01Search/views');
     }
 
-    public function run()
+    public function run(): void
     {
         parent::run();
 
