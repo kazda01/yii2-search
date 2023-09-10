@@ -6,7 +6,6 @@
  * @package yii2-widget-apexcharts
  */
 
-
 namespace kazda01\search;
 
 class SearchAsset extends \yii\web\AssetBundle

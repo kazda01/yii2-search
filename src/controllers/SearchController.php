@@ -10,7 +10,7 @@ use yii\web\Controller;
 /**
  * @author Antonín Kazda (kazda01)
  * @author Radim Mifka (mifka01)
- * 
+ *
  * SearchController implements model searching.
  */
 class SearchController extends Controller
@@ -51,7 +51,7 @@ class SearchController extends Controller
 
     /**
      * Get search results for specific object name and search string.
-     * 
+     *
      * @param string $searchObjectName
      * @param string $search
      * @return array
@@ -62,17 +62,21 @@ class SearchController extends Controller
         foreach ($this->searchParams[$searchObjectName]["columns"] as $column) {
             // Create search object and search
             $searchObjectClass = "app\\models\\search\\" . $searchObjectName;
-            $searchObject = new $searchObjectClass;
+            $searchObject = new $searchObjectClass();
             $searchResult = $searchObject->search([$searchObjectName => [$column => $search]]);
 
             // Group by if specified
             if (array_key_exists('group_by', $this->searchParams[$searchObjectName])) {
-                if ((is_bool($this->searchParams[$searchObjectName]['group_by']) && $this->searchParams[$searchObjectName]['group_by']) ||
+                if (
+                    (is_bool($this->searchParams[$searchObjectName]['group_by']) && $this->searchParams[$searchObjectName]['group_by']) ||
                     is_array($this->searchParams[$searchObjectName]['group_by']) ||
                     is_string($this->searchParams[$searchObjectName]['group_by'])
                 ) {
-                    if (is_bool($this->searchParams[$searchObjectName]['group_by'])) $group_by_over = $this->searchParams[$searchObjectName]['columns'];
-                    else $group_by_over = $this->searchParams[$searchObjectName]['group_by'];
+                    if (is_bool($this->searchParams[$searchObjectName]['group_by'])) {
+                        $group_by_over = $this->searchParams[$searchObjectName]['columns'];
+                    } else {
+                        $group_by_over = $this->searchParams[$searchObjectName]['group_by'];
+                    }
 
                     $subquery = clone $searchResult->query;
                     $primary_key = $subquery->modelClass::primaryKey()[0];
@@ -132,7 +136,9 @@ class SearchController extends Controller
             $tableResults = $this->getSearchResults($searchObjectName, $search);
             if (!empty($tableResults)) {
                 $matchTitle = $searchParam['matchTitle'];
-                if (is_callable($matchTitle)) $matchTitle = $matchTitle();
+                if (is_callable($matchTitle)) {
+                    $matchTitle = $matchTitle();
+                }
                 $results[] = [
                     'matchTitle' => $matchTitle,
                     'table' => $tableResults,
