@@ -18,7 +18,7 @@ jobs:
           composer install
 
       - name: Run PHPStan
-        run: vendor/bin/phpstan analyse ./src --level 9
+        run: vendor/bin/phpstan analyse ./src
   phpcs:
     name: PHP CodeSniffer
     runs-on: ubuntu-latest

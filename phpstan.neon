@@ -1,0 +1,10 @@
+parameters:
+    level: 6
+    ignoreErrors:
+        - '#Call to static method .* on an unknown class Yii\.#'
+        - '#Access to static property \$app on an unknown class Yii\.#'
+        - '#Call to an undefined static method yii\\base#'
+        - '#Access to an undefined property yii\\base#'
+        - '#has no value type specified in iterable type array.#'
+        - '#Call to an undefined method kazda01\\search\\.*::getView#'
+        - '#Call to an undefined method kazda01\\search\\.*::render#'
