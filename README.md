@@ -1,6 +1,7 @@
 # Yii2 search
 A simple search engine that allows the user to search for models by defined attributes and rules.
 
+![Tests](https://github.com/github/docs/actions/workflows/tests.yml/badge.svg)
 [![Total Downloads](https://poser.pugx.org/kazda01/yii2-search/downloads)](https://packagist.org/packages/kazda01/yii2-search)
 [![License](https://poser.pugx.org/kazda01/yii2-search/license)](https://packagist.org/packages/kazda01/yii2-search)
 
@@ -216,3 +217,13 @@ return [
 
 - [@kazda01](https://www.github.com/kazda01)
 - [@mifka01](https://www.github.com/mifka01)
+
+## Tests
+
+Every push to the repository triggers the CI test pipeline. You can run them locally by running these commands in the project root directory.
+
+```bash
+vendor/bin/phpstan analyse ./src
+vendor/bin/phpcs ./src --extensions=php --colors --standard=PSR12 -n
+vendor/bin/phpunit tests
+```
