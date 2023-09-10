@@ -2,12 +2,12 @@
   "name": "kazda01/yii2-search",
   "description": "A simple search engine that allows the user to search for models by defined attributes and rules.",
   "keywords": [
-      "yii2",
-      "extension",
-      "search",
-      "model",
-      "ajax",
-      "widget"
+    "yii2",
+    "extension",
+    "search",
+    "model",
+    "ajax",
+    "widget"
   ],
   "type": "yii2-extension",
   "license": "BSD-3-Clause",
@@ -26,9 +26,14 @@
       "email": "radimmifka@gmail.com"
     }
   ],
-  "require": {
-    "php": ">=7.4.0",
-    "yiisoft/yii2": "~2.0.45",
-    "yiisoft/yii2-bootstrap5": "2.0.3"
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true
+    }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^1.10",
+    "squizlabs/php_codesniffer": "*",
+    "phpunit/phpunit": "^9.6"
   }
 }

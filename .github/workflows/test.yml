@@ -1,0 +1,61 @@
+name: Test
+on: push
+jobs:
+  phpstan:
+    name: PHPStan
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: ⚙ Setup PHP Enviroment
+        uses: shivammathur/setup-php@2.20.1
+        with:
+          php-version: "8.0"
+
+      - name: ⚙ Install Composer Dependencies
+        run: |
+          composer install
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse ./src --level 9
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: ⚙ Setup PHP Enviroment
+        uses: shivammathur/setup-php@2.20.1
+        with:
+          php-version: "8.0"
+
+      - name: ⚙ Install Composer Dependencies
+        run: |
+          composer install
+
+      - name: Run PHP CodeSniffer
+        run: vendor/bin/phpcs ./src
+  test:
+    name: Test PHP ${{ matrix.php-versions }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ['7.4', '8.0', '8.1']
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: ⚙ Setup PHP Enviroment
+        uses: shivammathur/setup-php@2.20.1
+        with:
+          php-version: ${{ matrix.php-versions }}
+
+      - name: ⚙ Install Composer Dependencies
+        run: |
+          composer install
+
+      - name: Run tests
+        run: vendor/bin/phpunit tests
+  
