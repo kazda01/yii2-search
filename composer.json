@@ -27,7 +27,7 @@
     }
   ],
   "require": {
-    "yidas/yii2-bower-asset": "~2.0.5",
+    "php": ">=7.4.0",
     "yiisoft/yii2": "^2.0",
     "yiisoft/yii2-bootstrap5": "2.0.3"
   },
