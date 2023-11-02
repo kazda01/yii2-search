@@ -13,11 +13,11 @@ class SearchAsset extends \yii\web\AssetBundle
     public function init(): void
     {
         $this->sourcePath = __DIR__ . '/assets';
-        
+
         $this->js = [
             defined('YII_ENV_DEV') && YII_ENV_DEV ? 'search.js' : 'search.min.js'
         ];
-        
+
         parent::init();
     }
 
