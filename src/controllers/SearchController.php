@@ -65,8 +65,10 @@ class SearchController extends Controller
             if (mb_strpos($searchObjectName, '\\') === false) {
                 $searchObjectClass = "app\\models\\search\\" . $searchObjectClass;
             }
+            $splitClass = explode('\\', $searchObjectClass);
+            $searchObjectClassname = end($splitClass);
             $searchObject = new $searchObjectClass();
-            $searchResult = $searchObject->search([$searchObjectName => [$column => $search]]);
+            $searchResult = $searchObject->search([$searchObjectClassname => [$column => $search]]);
 
             // Group by if specified
             if (array_key_exists('group_by', $this->searchParams[$searchObjectName])) {
