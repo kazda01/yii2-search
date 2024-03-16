@@ -61,7 +61,10 @@ class SearchController extends Controller
         $results = [];
         foreach ($this->searchParams[$searchObjectName]["columns"] as $column) {
             // Create search object and search
-            $searchObjectClass = "app\\models\\search\\" . $searchObjectName;
+            $searchObjectClass = $searchObjectName;
+            if (mb_strpos($searchObjectName, '\\') === false) {
+                $searchObjectClass = "app\\models\\search\\" . $searchObjectClass;
+            }
             $searchObject = new $searchObjectClass();
             $searchResult = $searchObject->search([$searchObjectName => [$column => $search]]);
 
