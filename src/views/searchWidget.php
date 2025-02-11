@@ -150,32 +150,34 @@ if (empty($results)) : ?>
                     <div class="search-result position-relative p-1 ms-2 <?= $searchResultClass ?>">
                         <a class="stretched-link search-focus" href="<?= Url::toRoute($match['route']) ?>"></a>
                         <div class="d-flex"><?= $match['matchText'] ?></div>
-                        <small class="match text-muted d-flex">
+                        <div class="match text-muted d-flex small">
                             <span class="ms-2 me-3"><?= $match['model']->getAttributeLabel($match['match']) ?></span>
-                            <?php
-                            // highlight search query in search result
-                            $orig = $match['model']->getAttribute($match['match']);
-                            $exploded = explode(remove_accents(mb_strtolower($search)), remove_accents(mb_strtolower($match['model']->getAttribute($match['match']))));
-                            $counter = 0;
-                            for ($i = 0; $i < sizeof($exploded); $i++) : ?>
-                                <?php if ($i != 0) : ?>
-                                    <span class="fw-bold">
+                            <div class="match-text">
+                                <?php
+                                // highlight search query in search result
+                                $orig = $match['model']->getAttribute($match['match']);
+                                $exploded = explode(remove_accents(mb_strtolower($search)), remove_accents(mb_strtolower($match['model']->getAttribute($match['match']))));
+                                $counter = 0;
+                                for ($i = 0; $i < sizeof($exploded); $i++) : ?>
+                                    <?php if ($i != 0) : ?>
+                                        <span class="fw-bold">
+                                            <?php
+                                            foreach (mb_str_split($search) as $_) {
+                                                print_column_value_by_index($counter, $orig);
+                                                $counter++;
+                                            } ?>
+                                        </span>
+                                    <?php endif; ?>
+                                    <span>
                                         <?php
-                                        foreach (mb_str_split($search) as $_) {
+                                        foreach (mb_str_split($exploded[$i]) as $_) {
                                             print_column_value_by_index($counter, $orig);
                                             $counter++;
                                         } ?>
                                     </span>
-                                <?php endif; ?>
-                                <span>
-                                    <?php
-                                    foreach (mb_str_split($exploded[$i]) as $_) {
-                                        print_column_value_by_index($counter, $orig);
-                                        $counter++;
-                                    } ?>
-                                </span>
-                            <?php endfor; ?>
-                        </small>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
