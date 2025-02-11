@@ -1,5 +1,7 @@
 // Author: Antonín Kazda (kazda01)
 
+// searchTimeout - timeout for fast typing in search input
+let searchTimeout = null;
 // forcedSearch - whether search was forced by pressing enter key
 let forcedSearch = false;
 // lastSearch - last search query
@@ -13,6 +15,14 @@ function search(input, search_id) {
       type: "POST",
       url: `/${search_id}/search`,
       data: { search: `${input.val()}` },
+      beforeSend: function () {
+        $('.search-button>*').hide();
+        $('.search-button').append('<div class="spinner-border spinner-border-sm" role="status"></div>');
+      },
+      complete: function () {
+        $('.search-button .spinner-border').remove();
+        $('.search-button>*').show();
+      },
       success: function (response) {
         $(`#search-widget-${search_id}`).html(response);
         if ($(`#search-widget-${search_id}`).children().length > 0) {
@@ -20,13 +30,15 @@ function search(input, search_id) {
           $(`#search-widget-${search_id}`).find(".stretched-link.search-focus").last().attr("data-last", "true");
           $(`#search-widget-${search_id}`).find(".stretched-link.search-focus").first().attr("data-first", "true");
         }
+        $(`#search-widget-${search_id}`).fadeIn();
       },
       error: function (response) {
         console.log(response);
       },
     });
+  } else {
+    $(`#search-widget-${search_id}`).fadeIn();
   }
-  $(`#search-widget-${search_id}`).fadeIn();
 }
 
 // Try search function - checks if search should be performed
@@ -38,9 +50,17 @@ function try_search(event, input) {
   ) {
     if (event.keyCode == 13) {
       forcedSearch = true;
+      clearTimeout(searchTimeout);
+      if (input.val().length > 0) {
+        search(input, search_id);
+      }
     }
     if (input.val().length > 0) {
-      search(input, search_id);
+      clearTimeout(searchTimeout);
+      // Set new timeout
+      searchTimeout = setTimeout(() => {
+        search(input, search_id);
+      }, 300);
     } else {
       $(`#search-widget-${search_id}`).fadeOut();
     }
@@ -104,6 +124,7 @@ $("body").on("keydown", ".search-focus.stretched-link, .search-input", function 
 $("body").on("focusout", "input.search-input, .search-widget a", function () {
   let old_input = $(this);
   let old_search_id = old_input.data('search-id');
+  clearTimeout(searchTimeout);
   setTimeout(function () {
     if (!$(document.activeElement).hasClass("search-focus") || ($(document.activeElement).prop('tagName') == 'INPUT' && old_search_id != $(document.activeElement).data('search-id'))) {
       old_input.closest('.input-group').find('.search-widget').fadeOut();
