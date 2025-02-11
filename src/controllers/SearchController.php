@@ -68,7 +68,6 @@ class SearchController extends Controller
             $splitClass = explode('\\', $searchObjectClass);
             $searchObjectClassname = end($splitClass);
 
-            /** @var \yii\db\ActiveRecord $searchObject */
             $searchObject = new $searchObjectClass();
             $searchResult = $searchObject->search([$searchObjectClassname => [$column => $search]]);
 
