@@ -175,7 +175,6 @@ if (empty($results)) : ?>
                                     } ?>
                                 </span>
                             <?php endfor; ?>
-                            </span>
                         </small>
                     </div>
                 <?php endforeach; ?>
