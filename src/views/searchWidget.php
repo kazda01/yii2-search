@@ -158,24 +158,22 @@ if (empty($results)) : ?>
                                 $orig = $match['model']->getAttribute($match['match']);
                                 $exploded = explode(remove_accents(mb_strtolower($search)), remove_accents(mb_strtolower($match['model']->getAttribute($match['match']))));
                                 $counter = 0;
-                                for ($i = 0; $i < sizeof($exploded); $i++) : ?>
-                                    <?php if ($i != 0) : ?>
-                                        <span class="fw-bold">
-                                            <?php
-                                            foreach (mb_str_split($search) as $_) {
-                                                print_column_value_by_index($counter, $orig);
-                                                $counter++;
-                                            } ?>
-                                        </span>
-                                    <?php endif; ?>
-                                    <span>
-                                        <?php
-                                        foreach (mb_str_split($exploded[$i]) as $_) {
+                                for ($i = 0; $i < sizeof($exploded); $i++) {
+                                    if ($i != 0) {
+                                        echo "<span class='fw-bold'>";
+                                        foreach (mb_str_split($search) as $_) {
                                             print_column_value_by_index($counter, $orig);
                                             $counter++;
-                                        } ?>
-                                    </span>
-                                <?php endfor; ?>
+                                        }
+                                        echo "</span>";
+                                    }
+                                    echo "<span>";
+                                    foreach (mb_str_split($exploded[$i]) as $_) {
+                                        print_column_value_by_index($counter, $orig);
+                                        $counter++;
+                                    }
+                                    echo "</span>";
+                                } ?>
                             </div>
                         </div>
                     </div>
