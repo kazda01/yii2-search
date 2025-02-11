@@ -67,8 +67,18 @@ class SearchController extends Controller
             }
             $splitClass = explode('\\', $searchObjectClass);
             $searchObjectClassname = end($splitClass);
+
+            /** @var \yii\db\ActiveRecord $searchObject */
             $searchObject = new $searchObjectClass();
             $searchResult = $searchObject->search([$searchObjectClassname => [$column => $search]]);
+
+            // Disable pagination and set maximum limit based on config or default pagination size
+            $limit = $searchResult->pagination->pageSize;
+            $searchResult->pagination = false;
+            if (array_key_exists('limit', $this->searchParams[$searchObjectName])) {
+                $limit = $this->searchParams[$searchObjectName]['limit'];
+            }
+            $searchResult->query->limit($limit);
 
             // Group by if specified
             if (array_key_exists('group_by', $this->searchParams[$searchObjectName])) {
