@@ -58,7 +58,7 @@ class SearchService
      * @param bool $ignoreLimits
      * @return array<int, array{model: \yii\db\ActiveRecord, matchText: string, match: string, route: array<string, mixed>}>
      */
-    public function getSearchResults(string $searchObjectName, $searchConfig, string $search, bool $ignoreLimits)
+    private function getSearchResults(string $searchObjectName, $searchConfig, string $search, bool $ignoreLimits)
     {
         $results = [];
         foreach ($searchConfig["columns"] as $column) {
@@ -87,8 +87,7 @@ class SearchService
 
             // Group by if specified
             if (array_key_exists('group_by', $searchConfig)) {
-                if (
-                    (is_bool($searchConfig['group_by']) && $searchConfig['group_by']) ||
+                if ((is_bool($searchConfig['group_by']) && $searchConfig['group_by']) ||
                     is_array($searchConfig['group_by']) ||
                     is_string($searchConfig['group_by'])
                 ) {

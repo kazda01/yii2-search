@@ -30,7 +30,7 @@ class SearchModule extends Module implements BootstrapInterface
     public $searchConfig = [];
 
     /**
-     * {@inheritdoc}
+     * {@inheritDoc}
      */
     public function bootstrap($app): void
     {
