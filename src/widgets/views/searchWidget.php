@@ -25,7 +25,7 @@ if (empty($results)) : ?>
                         <a class="stretched-link search-focus" href="<?= Url::toRoute($match['route']) ?>"></a>
                         <div class="d-flex"><?= $match['matchText'] ?></div>
                         <div class="match text-muted d-flex small">
-                            <?php if ($widget->showMatchAttribute): ?>
+                            <?php if ($widget->showMatchAttribute) : ?>
                                 <span class="ms-2"><?= $match['model']->getAttributeLabel($match['match']) ?></span>
                             <?php endif; ?>
                             <div class="match-text ms-3">
