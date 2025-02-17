@@ -44,6 +44,11 @@ class SearchInput extends Widget
     public $wrapperClass = '';
 
     /**
+     * @var string|null $searchUrl Url for search action redirected at pressed enter key, if null, search is only ajax-based. You can use {search} as placeholder for search string in url.
+     */
+    public $searchUrl = null;
+
+    /**
      * @var string $widgetClass Class for search widget div
      */
     public $widgetClass = 'mx-auto shadow p-2 position-absolute bg-white';
@@ -61,7 +66,8 @@ class SearchInput extends Widget
 
     public function getViewPath()
     {
-        return Yii::getAlias('@kazda01Search/views');
+        $viewPath = Yii::getAlias('@kazda01Search/views');
+        return $viewPath !== false ? $viewPath : parent::getViewPath();
     }
 
     public function run()
@@ -83,6 +89,7 @@ class SearchInput extends Widget
             'inputClass' => $this->inputClass,
             'wrapperClass' => $this->wrapperClass,
             'widgetClass' => $this->widgetClass,
+            'searchUrl' => $this->searchUrl,
         ]);
     }
 }

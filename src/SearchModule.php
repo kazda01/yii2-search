@@ -2,6 +2,7 @@
 
 namespace kazda01\search;
 
+use kazda01\search\services\SearchService;
 use Yii;
 use yii\base\BootstrapInterface;
 use yii\base\Module;
@@ -14,7 +15,7 @@ class SearchModule extends Module implements BootstrapInterface
     public $allowGet = false;
 
     /**
-     * @var array $rules Access rules for search
+     * @var array<mixed> $rules Access rules for search
      */
     public $rules = [];
 
@@ -24,7 +25,7 @@ class SearchModule extends Module implements BootstrapInterface
     public $searchResultClass = 'rounded';
 
     /**
-     * @var array $searchConfig Search config
+     * @var array<mixed> $searchConfig Search config
      */
     public $searchConfig = [];
 
@@ -48,20 +49,8 @@ class SearchModule extends Module implements BootstrapInterface
     {
         Yii::setAlias('@kazda01Search', __DIR__);
 
+        Yii::$container->set(SearchService::class);
+
         parent::init();
-    }
-
-    public function getViewPath()
-    {
-        return Yii::getAlias('@kazda01Search/views');
-    }
-
-    public function run(): void
-    {
-        parent::run();
-
-        SearchAsset::register($this->getView());
-
-        echo $this->render('searchInput');
     }
 }

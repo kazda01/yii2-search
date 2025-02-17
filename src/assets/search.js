@@ -73,6 +73,10 @@ function try_search(event, input) {
 $(".search-button").on("click", function (e) {
   forcedSearch = true;
   let input = $(this).next();
+  if(input.data('url').length > 0 && input.val().length >= 4) {
+    window.location.href = encodeURI(input.data('url').replace('{search}', input.val()));
+    return;
+  }
   try_search(e, input);
   input.focus();
 });

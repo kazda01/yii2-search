@@ -15,16 +15,22 @@ class SearchAsset extends \yii\web\AssetBundle
         $this->sourcePath = __DIR__ . '/assets';
 
         $this->js = [
-            defined('YII_ENV_DEV') && YII_ENV_DEV ? 'search.js' : 'search.min.js'
+            'search.js'
         ];
 
         parent::init();
     }
 
+    /**
+     * @var string[]
+     */
     public $css = [
         'search.css'
     ];
 
+    /**
+     * @var string[]
+     */
     public $depends = [
         'yii\web\JqueryAsset',
         'yii\bootstrap5\BootstrapAsset'
