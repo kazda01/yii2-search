@@ -6,6 +6,8 @@ use kazda01\search\services\SearchService;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Widget;
+use yii\data\ArrayDataProvider;
+use yii\data\Pagination;
 
 class SearchResultWidget extends Widget
 {
@@ -25,9 +27,14 @@ class SearchResultWidget extends Widget
     public bool $showMatchAttribute = true;
 
     /**
-     * @var bool $ignoreLimits Ignore query pagination limits
+     * @var bool $paginate Whether to paginate the results
      */
-    public bool $ignoreLimits = false;
+    public bool $paginate = false;
+
+    /**
+     * @var null|array<string>|string $filterSearch Filter which ModelSearch from $moduleId search config should apply, if null, all will be applied
+     */
+    public $filterSearch = null;
 
     /**
      * @var string $searchResultClass Class for search result
@@ -87,15 +94,38 @@ class SearchResultWidget extends Widget
         return $result;
     }
 
+    /**
+     * Get fake pagination for search results.
+     * If result should be paginated, we need to create fake pagination to mimic real pagination.
+     * We don't know about total number of items, we only know if there is one more page.
+     * This reduces heavy COUNT queries to database.
+     */
+    private function getFakePagination(ArrayDataProvider $dataProvider): ?Pagination
+    {
+        if ($this->paginate) {
+            $fakePagination = clone $dataProvider->pagination;
+            $dataProvider->pagination = new \yii\data\Pagination([
+                'pageSize' => SearchService::SEARCH_PAGE_SIZE,
+                'page' => 0,
+            ]);
+            return $fakePagination;
+        }
+        return null;
+    }
+
     public function run(): string
     {
         $searchService = new SearchService();
-        $results = $searchService->search($this->search, $this->searchId, $this->ignoreLimits);
+        $searchResultDataProvider = $searchService->search($this->search, $this->searchId, $this->filterSearch, $this->paginate);
+
+        $fakePagination = $this->getFakePagination($searchResultDataProvider);
+
 
         return $this->render('searchWidget', [
-            'results' => $results,
+            'searchResultDataProvider' => $searchResultDataProvider,
             'search' => $this->search,
             'widget' => $this,
+            'pagination' => $fakePagination,
         ]);
     }
 }
