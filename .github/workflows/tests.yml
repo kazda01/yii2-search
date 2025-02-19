@@ -36,7 +36,7 @@ jobs:
           composer install
 
       - name: Run PHP CodeSniffer
-        run: vendor/bin/phpcs ./src --extensions=php --colors --standard=PSR12 -n
+        run: vendor/bin/phpcs ./src --extensions=php --colors --standard=phpcs.xml
   test:
     name: Test PHP ${{ matrix.php-versions }}
     runs-on: ubuntu-latest

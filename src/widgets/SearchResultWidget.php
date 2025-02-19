@@ -8,7 +8,6 @@ use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
-use yii\widgets\ListView;
 
 class SearchResultWidget extends Widget
 {
