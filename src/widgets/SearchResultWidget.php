@@ -8,6 +8,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Widget;
 use yii\data\ArrayDataProvider;
 use yii\data\Pagination;
+use yii\widgets\ListView;
 
 class SearchResultWidget extends Widget
 {
@@ -40,6 +41,12 @@ class SearchResultWidget extends Widget
      * @var string $searchResultClass Class for search result
      */
     public $searchResultClass = 'rounded';
+
+    /**
+     * @var string|null $view The name of view file to be rendered for the results.
+     * Note that the view name is resolved into the view file by the current context of the [[view]] object same as in yii2 ListView
+     */
+    public $view = null;
 
     public function init(): void
     {
@@ -120,8 +127,11 @@ class SearchResultWidget extends Widget
 
         $fakePagination = $this->getFakePagination($searchResultDataProvider);
 
-
-        return $this->render('searchWidget', [
+        $view = $this->view;
+        if ($view === null) {
+            $view = 'searchWidget';
+        }
+        return $this->render($view, [
             'searchResultDataProvider' => $searchResultDataProvider,
             'search' => $this->search,
             'widget' => $this,
