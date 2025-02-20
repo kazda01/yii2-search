@@ -19,7 +19,7 @@ foreach ($searchResultDataProvider->getModels() as $searchResult) {
 }
 
 if ($searchResultDataProvider->getTotalCount() === 0): ?>
-    <p class='text-muted m-2 text-center'><?= Yii::t('app', 'No results') ?></p>
+    <p class='text-tertiary m-2 text-center'><?= Yii::t('app', 'No results') ?></p>
 <?php else: ?>
     <?php Pjax::begin([
         'id' => 'search-results',
@@ -36,7 +36,7 @@ if ($searchResultDataProvider->getTotalCount() === 0): ?>
                         <div class="search-result position-relative p-1 ms-2 <?= $widget->searchResultClass ?>">
                             <a class="stretched-link search-focus" href="<?= Url::toRoute($searchResult->route) ?>"></a>
                             <div class="d-flex"><?= $searchResult->matchText ?></div>
-                            <div class="match text-muted d-flex small">
+                            <div class="match text-tertiary d-flex small">
                                 <?php if ($widget->showMatchAttribute): ?>
                                     <span class="ms-2"><?= $searchResult->model->getAttributeLabel($searchResult->match) ?></span>
                                 <?php endif; ?>
