@@ -46,7 +46,7 @@ svg.search-icon {
 }
 
 .search-result:hover {
-    background-color: #f1f1f1 !important;
+    background-color: #f1f1f1;
 }
 
 .match .match-text {
